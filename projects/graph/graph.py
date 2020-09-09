@@ -14,7 +14,7 @@ class Graph:
         Add a vertex to the graph.
         """
         self.vertices[vertex_id] = set()
-        
+
 
     def add_edge(self, v1, v2):
         """
@@ -36,14 +36,51 @@ class Graph:
         Print each vertex in breadth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        
+		queue = Queue()
+		
+		visited = set()
+		
+		queue.enqueue(starting_vertex)
+		
+		while queue.size() > 0:
+			
+			current_node = queue.dequeue()
+			
+			if current_node not in visited:
+				visited.add(current_node)
+				
+			
+				edges = self.get_neighbors(current_node)
+				
+				for edge in edges:
+					queue.enqueue(edge) 
 
     def dft(self, starting_vertex):
         """
         Print each vertex in depth-first order
         beginning from starting_vertex.
         """
-        pass  # TODO
+        
+		stack = Stack()
+		
+		visited = set()
+		
+		stack.push(starting_vertex)
+		
+		while stack.size() > 0:
+			
+			current_node = stack.pop()
+			
+			if current_node not in visited:
+				
+				visited.add(current_node)
+				
+				
+				edges = self.get_neighbors(current_node)
+				
+				for edge in edges:
+					stack.push(edge)
 
     def dft_recursive(self, starting_vertex):
         """
@@ -52,7 +89,7 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+        
 
     def bfs(self, starting_vertex, destination_vertex):
         """
@@ -60,7 +97,9 @@ class Graph:
         starting_vertex to destination_vertex in
         breath-first order.
         """
-        pass  # TODO
+         
+		
+			
 
     def dfs(self, starting_vertex, destination_vertex):
         """
@@ -68,7 +107,7 @@ class Graph:
         starting_vertex to destination_vertex in
         depth-first order.
         """
-        pass  # TODO
+    
 
     def dfs_recursive(self, starting_vertex, destination_vertex):
         """
@@ -78,7 +117,7 @@ class Graph:
 
         This should be done using recursion.
         """
-        pass  # TODO
+     
 
 if __name__ == '__main__':
     graph = Graph()  # Instantiate your graph
