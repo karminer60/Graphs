@@ -28,8 +28,11 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
+visited = set()
 #I want to keep track of what direction I took to get into the room (keep stack)
 #list of spots I want to visit
+
+
 
 
 
