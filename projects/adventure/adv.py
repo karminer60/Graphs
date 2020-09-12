@@ -34,7 +34,7 @@ traversal_path = []
 stack = Stack()
         
     visited = set()
-        
+    
     stack.push(starting_vertex)
         
     while stack.size() > 0:
@@ -42,7 +42,7 @@ stack = Stack()
         current_node = stack.pop()
             
         if current_node not in visited:
-                
+            player    
             visited.add(current_node)
             print(current_node)
                 
