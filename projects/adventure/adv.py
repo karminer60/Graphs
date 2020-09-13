@@ -35,19 +35,24 @@ stack = Stack()
         
     visited = set()
     
-    stack.push(starting_vertex)
+    stack.push(current_room)
+
+    
         
     while stack.size() > 0:
+        current_room = player.current_room.id
+
+        player.current_room.get_exits()
+        player.travel(current_room)
+        
+        current_room = stack.pop()
             
-        current_node = stack.pop()
-            
-        if current_node not in visited:
-            player    
-            visited.add(current_node)
-            print(current_node)
+        if current_room not in visited: 
+            visited.add(current_room)
+            print(current_room)
                 
                 
-            edges = self.get_neighbors(current_node)
+            edges = self.get_neighbors(current_room)
                 
             for edge in edges:
                 stack.push(edge)
