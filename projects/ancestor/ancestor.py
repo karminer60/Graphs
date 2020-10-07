@@ -41,7 +41,6 @@ class Graph:
             print("That vertex does not exist")
 
 
-
 def earliest_ancestor(ancestors, starting_node):
     
     graph = Graph()
