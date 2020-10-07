@@ -38,7 +38,7 @@ class Graph:
         if v1 in self.vertices and v2 in self.vertices:
             self.vertices[v1].add(v2)
         else:
-            print("That vertex does not exist")
+            print("Vertex does not exist")
 
 
 def earliest_ancestor(ancestors, starting_node):
