@@ -51,6 +51,7 @@ stack = Stack()
     while stack.size() > 0:
             
         player.travel(direction) = stack.pop()
+        player.travel()
             
         if current_node not in visited:
             player    
