@@ -5,6 +5,19 @@ from world import World
 import random
 from ast import literal_eval
 
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
+
 # Load world
 world = World()
 
@@ -29,17 +42,15 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
-#I want to keep track of what direction I took to get into the room (keep stack)
-#list of spots I want to visit
 stack = Stack()
         
     visited = set()
-    
-    stack.push(starting_vertex)
-        
+    #initial direction
+    stack.push(None)
+    #using the while loop to move through the rooms   
     while stack.size() > 0:
             
-        current_node = stack.pop()
+        player.travel(direction) = stack.pop()
             
         if current_node not in visited:
             player    
@@ -51,6 +62,11 @@ stack = Stack()
                 
             for edge in edges:
                 stack.push(edge)
+
+# get initial room
+player.current_room = world.starting_room
+#traverse
+traversal(player.current_room)
 
 
 
