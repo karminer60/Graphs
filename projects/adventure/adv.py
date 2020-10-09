@@ -5,19 +5,6 @@ from world import World
 import random
 from ast import literal_eval
 
-class Stack():
-    def __init__(self):
-        self.stack = []
-    def push(self, value):
-        self.stack.append(value)
-    def pop(self):
-        if self.size() > 0:
-            return self.stack.pop()
-        else:
-            return None
-    def size(self):
-        return len(self.stack)
-
 # Load world
 world = World()
 
@@ -42,32 +29,72 @@ player = Player(world.starting_room)
 # traversal_path = ['n', 'n']
 traversal_path = []
 
-stack = Stack()
-        
-    visited = set()
-    #initial direction
-    stack.push(None)
-    #using the while loop to move through the rooms   
-    while stack.size() > 0:
-            
-        player.travel(direction) = stack.pop()
-        player.travel()
-            
-        if current_node not in visited:
-            player    
-            visited.add(current_node)
-            print(current_node)
-                
-                
-            edges = self.get_neighbors(current_node)
-                
-            for edge in edges:
-                stack.push(edge)
+class Queue():
+    def __init__(self):
+        self.queue = []
+    def enqueue(self, value):
+        self.queue.append(value)
+    def dequeue(self):
+        if self.size() > 0:
+            return self.queue.pop(0)
+        else:
+            return None
+    def size(self):
+        return len(self.queue)
 
-# get initial room
-player.current_room = world.starting_room
-#traverse
-traversal(player.current_room)
+class Stack():
+    def __init__(self):
+        self.stack = []
+    def push(self, value):
+        self.stack.append(value)
+    def pop(self):
+        if self.size() > 0:
+            return self.stack.pop()
+        else:
+            return None
+    def size(self):
+        return len(self.stack)
+
+## Helper Function to return opposite directions
+
+def opposite_direction(direction):
+    if direction == 'n':
+        return 's'
+    elif direction == 's':
+        return 'n'
+    elif direction == 'e':
+        return 'w'
+    elif direction == 'w':
+        return 'e'
+
+
+graph = {}
+
+def bfs(graph, starting_room):
+
+    q = Queue()
+
+    visited_set = set()
+
+    q.enqueue([starting_room])
+
+    while q.size() > 0:
+        path = q.dequeue()
+        check_room = path[-1]
+
+        if check_room not in visited_set:
+            visited_set.add(check_room)
+
+            for room in graph[check_room]:
+                if graph[check_room][room] == '?':
+                    return path
+
+            for e_exit in graph[check_room]:
+                neighbor = graph[check_room][e_exit]
+                path_copy = list(path)
+                path_copy.append(neighbor)
+                q.enqueue(path_copy)
+    return None
 
 
 
