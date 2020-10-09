@@ -55,7 +55,7 @@ class Stack():
     def size(self):
         return len(self.stack)
 
-## Helper Function to return opposite directions
+
 
 def opposite_direction(direction):
     if direction == 'n':
@@ -96,6 +96,47 @@ def bfs(graph, starting_room):
                 q.enqueue(path_copy)
     return None
 
+
+
+while len(graph) < len(room_graph):
+    current_roomid = player.current_room.id
+    if current_roomid not in graph:
+        graph[current_roomid] = {}
+        for exit in player.current_room.get_exits():
+            graph[current_roomid][exit] = "?"
+    for direction in graph[current_roomid]:
+        if direction not in graph[current_roomid]:
+            break
+        if graph[current_roomid][direction] == '?':
+            roomExit = direction
+            if roomExit is not None:
+                traversal_path.append(roomExit)
+                player.travel(roomExit)
+                newRoomID = player.current_room.id
+
+
+                if newRoomID not in graph:
+                    graph[newRoomID] = {}
+                    for exit in player.current_room.get_exits():
+                        graph[newRoomID][exit] = '?'
+
+            graph[current_roomid][roomExit] = newRoomID
+            graph[newRoomID][opposite_direction(roomExit)] = current_roomid
+            current_roomid = newRoomID
+
+    pathOfRooms = bfs(graph, player.current_room.id)
+    print(pathOfRooms)
+
+    if pathOfRooms is not None:
+        for room in pathOfRooms:
+            for exit in graph[current_roomid]:
+                print(f"{graph[current_roomid]}")
+                if graph[current_roomid][exit] == room:
+                    traversal_path.append(exit)
+                    player.travel(exit)
+
+
+    current_roomid = player.current_room.id
 
 
 
