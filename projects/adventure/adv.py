@@ -28,9 +28,9 @@ player = Player(world.starting_room)
 # Fill this out with directions to walk
 # traversal_path = ['n', 'n']
 traversal_path = []
-graph = {}
-#I want to keep track of what direction I took to get into the room (keep stack)
-#list of spots I want to visit
+
+
+
 def opposite_direction(direction):
     if direction == 'n':
         return 's'
@@ -47,15 +47,16 @@ def get_room_in_direction(player, direction):
     player.travel(opposite_direction(direction))
     return neighbor_id
 
-#exploring all unexplored rooms
-#will create stack, traversal path, and a visted set
 
+#I want to keep track of what direction I took to get into the room (keep stack)
 stack = []
     
 visited = {player.current_room.id}
 
-     
-while len(visited) < len(room_graph):
+#exploring all unexplored rooms
+#will create stack, traversal path, and a visted set     
+while True:
+    #finding unexplored exit
     for direction in player.current_room.get_exits():
         if get_room_in_direction(player, direction) not in visited:
             player.travel(direction)
@@ -63,8 +64,11 @@ while len(visited) < len(room_graph):
             stack.append(direction)
             visited.add(player.current_room.id)
             break
+    #otherwise backtrack
     else:
-        direction = opposite_direction(stack.pop()) 
+        if not stack: #when you can no longer backtrack anymore
+            break
+        direction = opposite_direction(stack.pop()) #backtrack to reach earlier unexplored exits
         player.travel(direction)
         traversal_path.append(direction)
 
